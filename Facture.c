@@ -115,17 +115,17 @@ void sauvegarderFacturesDansFichier() {
 // Menu Facture
 void Menu_Facture() 
 {
-    int choix=1, id;
+    int choix=0, id;
     Facture nouvelleFacture;
 
     do 
 	{
-        printf("\n---------- MENU FACTURE ----------\n");
-        printf("\n\n\n1. Ajouter une facture\n");
-        printf("\n\n\n2. Afficher les factures\n");
-        printf("\n\n\n3. Sauvegarder les factures\n");
-        printf("\n\n\n4. Quitter\n");
-        printf("Votre choix : ");
+        printf("\n\t================== MENU FACTURE ==================\n");
+        printf("\t\t\t1. Ajouter une facture\n");
+        printf("\t\t\t2. Afficher les factures\n");
+        printf("\t\t\t3. Sauvegarder les factures\n");
+        printf("\t\t\t4. Quitter\n");
+        printf("\t\t\tVotre choix : ");
         scanf("%d", &choix);
         getchar();
 

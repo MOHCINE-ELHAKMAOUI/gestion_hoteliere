@@ -447,19 +447,19 @@ void Menu_Hotel()
     do
     {
         printf("\n--- Menu Hotel ---\n");
-        printf("\n\n\n1.  Ajouter un hotel\n");
-        printf("\n\n\n2.  Afficher un hotel\n");
-        printf("\n\n\n3.  Afficher tous les hotels\n");
-        printf("\n\n\n4.  Supprimer un hotel\n");
-        printf("\n\n\n5.  Modifier un hotel\n");
-        printf("\n\n\n6.  Trier les hotels par ID\n");
-        printf("\n\n\n7.  Trier les hotels par nom\n");
-        printf("\n\n\n8.  Trier les hotels par ville\n");
-        printf("\n\n\n9.  Trier les hotels par pays\n");
-        printf("\n\n\n10. Rechercher un hotel par nom\n");
-        printf("\n\n\n11. Afficher les hotels par ville\n");
-        printf("\n\n\n12. Afficher les hotels par etoiles\n");
-        printf("\n\n\n0.  Retour au Menu General\n");
+        printf("\t\t\t1.  Ajouter un hotel\n");
+        printf("\t\t\t2.  Afficher un hotel\n");
+        printf("\t\t\t3.  Afficher tous les hotels\n");
+        printf("\t\t\t4.  Supprimer un hotel\n");
+        printf("\t\t\t5.  Modifier un hotel\n");
+        printf("\t\t\t6.  Trier les hotels par ID\n");
+        printf("\t\t\t7.  Trier les hotels par nom\n");
+        printf("\t\t\t8.  Trier les hotels par ville\n");
+        printf("\t\t\t9.  Trier les hotels par pays\n");
+        printf("\t\t\t10. Rechercher un hotel par nom\n");
+        printf("\t\t\t11. Afficher les hotels par ville\n");
+        printf("\t\t\t12. Afficher les hotels par etoiles\n");
+        printf("\t\t\t0.  Retour au Menu General\n");
         printf("Votre choix: ");
         scanf("%u", &choice);
 		getchar();

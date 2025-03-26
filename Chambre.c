@@ -353,7 +353,7 @@ void Menu_Tri()
     int choix;
     do
     {
-        printf("\t\t\n===== MENU TRI CHAMBRES =====\n");
+        printf("\n\t\t===== MENU TRI CHAMBRES =====\n");
         printf("\t\t\t\t1. Trier par ID\n");
         printf("\t\t\t\t2. Trier par numéro de chambre\n");
         printf("\t\t\t\t3. Trier par prix croissant\n");
@@ -399,7 +399,7 @@ void Menu_Chambre()
     int choix;
     do
     {
-        printf("\t\n================== MENU CHAMBRES ==================\n");
+        printf("\n\t================== MENU CHAMBRES ==================\n");
         printf("\t\t\t1. Ajouter une chambre\n");
         printf("\t\t\t2. Modifier une chambre\n");
         printf("\t\t\t3. Supprimer une chambre\n");
