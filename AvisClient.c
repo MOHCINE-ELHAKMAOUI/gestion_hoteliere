@@ -5,4 +5,4 @@
 
 static unsigned int NB_AvisClient = 0 ; 
 static unsigned int CAvisClient = 0 ;
-static AvisClilnet * TAvisClient = NULL ;
+static AvisClient * TAvisClient = NULL ;
