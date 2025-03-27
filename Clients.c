@@ -82,6 +82,26 @@ void SaisirClient(Client * clt)
     } 
 } 
 
+void Rechercher_Client(int id_client)
+{
+	Client * clt = DL ; 
+	while(clt->id_Client!=id_client && clt->suivant!=NULL)
+	{
+		clt=clt->suivant;
+	}
+	if(clt->id_Client==id_client)
+	{
+		printf("\n----------> le client recherchee est :");
+		AfficherClient(clt);
+	}
+	else
+	{
+		printf("\n----------> le client recherchee est introuvable dans la liste des clients\n\n");
+	}
+	
+	
+}
+
 void AjouterClientDL() 
 { 
     Client * clt = malloc(sizeof(Client)) ; 
@@ -233,6 +253,112 @@ int is_positive_integer( char *str) {
     }
 
     return 1;
+}
+
+void OrdonnerClientsViaNom()
+{
+    Client *u, *v;
+    char *nom, *prenom, *email, *adresse, *nationalite, *ville_client;
+    unsigned int id_client, code_postale;
+    Date d;
+
+    for (u = DL; u != FL; u = u->suivant)
+    {
+        for (v = u->suivant; v != NULL; v = v->suivant)
+        {
+            if (strcmp(u->Nom, v->Nom) > 0)
+            {
+                nom = u->Nom;
+                u->Nom = v->Nom;
+                v->Nom = nom;
+
+                prenom = u->Prenom;
+                u->Prenom = v->Prenom;
+                v->Prenom = prenom;
+                
+                email = u->Email;
+                u->Email = v->Email;
+                v->Email = email;
+                
+                adresse = u->Adresse;
+                u->Adresse = v->Adresse;
+                v->Adresse = adresse;
+                
+                nationalite = u->Nationalite;
+                u->Nationalite = v->Nationalite;
+                v->Nationalite = nationalite;
+                
+                code_postale = u->Code_Postale;
+                u->Code_Postale = v->Code_Postale;
+                v->Code_Postale = code_postale;
+                
+                ville_client = u->Ville_Client;
+                u->Ville_Client = v->Ville_Client;
+                v->Ville_Client = ville_client;
+                
+                id_client = u->id_Client;
+                u->id_Client = v->id_Client;
+                v->id_Client = id_client;
+                
+                d = u->Date_Naissance;
+                u->Date_Naissance = v->Date_Naissance;
+                v->Date_Naissance = d;
+            }
+        }
+    }
+}
+
+void OrdonnerClientsViaDateCroissante()
+{
+    Client *u, *v;
+    char *nom, *prenom, *email, *adresse, *nationalite, *ville_client;
+    unsigned int id_client, code_postale;
+    Date d;
+
+    for (u = DL; u != FL; u = u->suivant)
+    {
+        for (v = u->suivant; v != NULL; v = v->suivant)
+        {
+            if (ComparerDatesCroissantes(u->Date_Naissance, v->Date_Naissance) > 0)
+            {
+                nom = u->Nom;
+                u->Nom = v->Nom;
+                v->Nom = nom;
+
+                prenom = u->Prenom;
+                u->Prenom = v->Prenom;
+                v->Prenom = prenom;
+                
+                email = u->Email;
+                u->Email = v->Email;
+                v->Email = email;
+                
+                adresse = u->Adresse;
+                u->Adresse = v->Adresse;
+                v->Adresse = adresse;
+                
+                nationalite = u->Nationalite;
+                u->Nationalite = v->Nationalite;
+                v->Nationalite = nationalite;
+                
+                code_postale = u->Code_Postale;
+                u->Code_Postale = v->Code_Postale;
+                v->Code_Postale = code_postale;
+                
+                ville_client = u->Ville_Client;
+                u->Ville_Client = v->Ville_Client;
+                v->Ville_Client = ville_client;
+                
+                id_client = u->id_Client;
+                u->id_Client = v->id_Client;
+                v->id_Client = id_client;
+                
+                d = u->Date_Naissance;
+                u->Date_Naissance = v->Date_Naissance;
+                v->Date_Naissance = d;
+            }
+        }
+    }
 }
 
 int verif_file(char *filename) {
@@ -628,17 +754,18 @@ void Menu_Client()
         printf("\n\t\t\t 4/  supprimer un client");
         printf("\n\t\t\t 5/  modifier un client");
         printf("\n\t\t\t 6/  sauvgarder la liste des clients");
-        printf("\n\t\t\t 7/  verification des donnes du fichier txt");
-        printf("\n\t\t\t 8/  importation des donnees des clients");
+        printf("\n\t\t\t 7/  rechercher un client avec son id");
+        printf("\n\t\t\t 8/  importation des donnees des clients du fichier txt");
+        printf("\n\t\t\t 9/  Ordonner les Clients Via Nom");
         
-        printf("\n\t\t\t Saisir votre choix [0, 8] : ");
+        printf("\n\t\t\t Saisir votre choix [0, 9] : ");
         scanf("%d", &choix);
         getchar();
 
         switch (choix)
         {
 	        case 0:
-	            printf("\n Retour au Menu General\n");
+	            printf("\n-------->Retour au Menu General\n\n");
 				return;
 	        case 1:
 	            AfficherClients();
@@ -665,15 +792,10 @@ void Menu_Client()
 	            sauvegarder_LSC() ;
 	            break;
 	        case 7:
-	        	if(verif_file("client_data.txt"))
-	        	{
-	        		printf("\n--------> les donnees du fichier sont valide\n\n");
-				}
-				else
-				{
-					printf("\n-------->le format des donnees du fichier sont invalide\n\n");
-				}
-	        	
+	        	printf("\nEntre id du client recherche\n");
+	        	scanf("%d",&code);
+	        	getchar();
+	        	Rechercher_Client(code);
 	        	break;
 	        case 8:
 	        	if(verif_file("client_data.txt"))
@@ -686,10 +808,12 @@ void Menu_Client()
 					printf("\n-------->le format des donnees du fichier sont invalide\n\n");
 				}
 	        	break;
+	        case 9:
+	        	OrdonnerClientsViaNom();
+	        	break;
 	        default:
 	            printf("\n Saisir une option entre 0 et 8\n");
 	            break;
         }
 	}
 }
-
