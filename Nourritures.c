@@ -336,8 +336,3 @@ void MenuNourritures() {
     
     LibererNourritures();
 }
-
-int main() {
-    MenuNourritures();
-    return 0;
-}

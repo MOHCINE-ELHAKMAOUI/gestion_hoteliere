@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include<stdlib.h>
 #include <string.h>
-//#include"Reservation.h"
-//#include "Clients.h"
+
 
 #include"Structures.h"
 
@@ -26,10 +25,8 @@ void Menu_General()
         printf("\n\t\t 5/  Ajuster la table des reservations");
         printf("\n\t\t 6/  Ajuster la table des avis");
         printf("\n\t\t 7/  Ajuster la table des nourritures");
-        printf("\n\t\t 8/  Ajuster la table des cccccccc");
-        printf("\n\t\t 9/  Ajuster la table des cccccccc");
         
-        printf("\n\t\t Saisir votre choix [0, 6] : ");
+        printf("\n\t\t Saisir votre choix [0, 7] : ");
         scanf("%d", &choix);
         getchar();
 
@@ -54,13 +51,13 @@ void Menu_General()
 				Menu_Reservation();
 	            break;
 	        case 6:
-	            //Menu_Avis() ;
+				MenuAvisClient();
 	            break;
 	        case 7:
-	        	//Menu_Nourritures();
+				MenuNourritures();
 	        	break;
 	        default:
-	            printf("\n Saisir une option entre 0 et 6\n");
+	            printf("\n Saisir une option entre 0 et 7\n");
 	            break;
         }
 }

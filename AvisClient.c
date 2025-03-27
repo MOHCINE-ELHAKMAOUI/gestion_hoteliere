@@ -323,8 +323,3 @@ void MenuAvisClient() {
     LibererSystemeAvis();
 }
 
-// Fonction principale de test
-int main() {
-    MenuAvisClient();
-    return 0;
-}

@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <malloc.h>
 #include <stdlib.h>
-//#include "Chaine.h"
 #include <ctype.h>
 #include <string.h>
 

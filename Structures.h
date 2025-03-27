@@ -85,6 +85,7 @@ typedef struct AvisClient{
     unsigned int Note;
     char *Commentaire;
 }AvisClient;
+void MenuAvisClient();
 //
 
 char *SaisirChaine();
@@ -121,6 +122,7 @@ typedef struct Nourritures{
     char *Description_Nourriture;
     double Prix_Total;
 }Nourritures;
+void MenuNourritures();
 //
 
 
