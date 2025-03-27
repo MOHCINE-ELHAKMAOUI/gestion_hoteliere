@@ -65,7 +65,8 @@ void SauvegarderNourritures() {
     fwrite(&NBNourritures, sizeof(unsigned int), 1, f);
     fwrite(&CptNourritures, sizeof(unsigned int), 1, f);
     
-    for (unsigned int i = 0; i < NBNourritures; i++) {
+    unsigned int i;
+    for ( i = 0; i < NBNourritures; i++) {
         fwrite(&TNourritures[i].id_Nourriture, sizeof(unsigned int), 1, f);
         fwrite(&TNourritures[i].id_Hotel, sizeof(unsigned int), 1, f);
         
@@ -92,8 +93,9 @@ void ChargerNourritures() {
     
     fread(&NBNourritures, sizeof(unsigned int), 1, f);
     fread(&CptNourritures, sizeof(unsigned int), 1, f);
-    
-    for (unsigned int i = 0; i < NBNourritures; i++) {
+
+    unsigned int i;
+    for ( i = 0; i < NBNourritures; i++) {
         fread(&TNourritures[i].id_Nourriture, sizeof(unsigned int), 1, f);
         fread(&TNourritures[i].id_Hotel, sizeof(unsigned int), 1, f);
         
@@ -157,13 +159,15 @@ void AfficherToutesNourritures() {
         return;
     }
     
-    for (unsigned int i = 0; i < NBNourritures; i++) {
+    unsigned int i;
+    for ( i = 0; i < NBNourritures; i++) {
         AfficherNourriture(&TNourritures[i]);
     }
 }
 
 Nourritures* RechercherNourritureParId(unsigned int id) {
-    for (unsigned int i = 0; i < NBNourritures; i++) {
+    unsigned int i;
+    for ( i = 0; i < NBNourritures; i++) {
         if (TNourritures[i].id_Nourriture == id) {
             return &TNourritures[i];
         }
@@ -174,7 +178,8 @@ Nourritures* RechercherNourritureParId(unsigned int id) {
 void AfficherNourrituresParHotel(unsigned int idHotel) {
     printf("\n=== Nourritures pour l'hotel %u ===\n", idHotel);
     int trouve = 0;
-    for (unsigned int i = 0; i < NBNourritures; i++) {
+    unsigned int i;
+    for ( i = 0; i < NBNourritures; i++) {
         if (TNourritures[i].id_Hotel == idHotel) {
             AfficherNourriture(&TNourritures[i]);
             trouve = 1;
@@ -237,7 +242,8 @@ void ModifierNourriture(unsigned int id) {
 
 void SupprimerNourriture(unsigned int id) {
     int index = -1;
-    for (unsigned int i = 0; i < NBNourritures; i++) {
+    unsigned int i;
+    for ( i = 0; i < NBNourritures; i++) {
         if (TNourritures[i].id_Nourriture == id) {
             index = i;
             break;
@@ -252,8 +258,9 @@ void SupprimerNourriture(unsigned int id) {
     free(TNourritures[index].Nom_Nourriture);
     free(TNourritures[index].Type_Nourriture);
     free(TNourritures[index].Description_Nourriture);
-    
-    for (unsigned int i = index; i < NBNourritures-1; i++) {
+
+    unsigned int i;
+    for ( i = index; i < NBNourritures-1; i++) {
         TNourritures[i] = TNourritures[i+1];
     }
     
