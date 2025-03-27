@@ -260,7 +260,6 @@ void SupprimerNourriture(unsigned int id) {
     free(TNourritures[index].Type_Nourriture);
     free(TNourritures[index].Description_Nourriture);
 
-    unsigned int i;
     for ( i = index; i < NBNourritures-1; i++) {
         TNourritures[i] = TNourritures[i+1];
     }

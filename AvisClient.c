@@ -244,8 +244,7 @@ void SupprimerAvis(unsigned int id) {
     }
     
     free(TAvis[index].Commentaire);
-    
-    int i ;
+
     for (i = index; i < NBAvis - 1; i++) {
         TAvis[i] = TAvis[i + 1];
     }
