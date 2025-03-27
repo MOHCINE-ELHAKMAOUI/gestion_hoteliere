@@ -12,13 +12,7 @@ static Nourritures *TNourritures = NULL;
 static unsigned int NBNourritures = 0;
 static unsigned int CptNourritures = 0;
 
-// Fonction pour lire une chaîne de caractères
-char* SaisirChaine() {
-    char buffer[500];
-    fgets(buffer, sizeof(buffer), stdin);
-    buffer[strcspn(buffer, "\n")] = '\0';
-    return strdup(buffer);
-}
+
 
 // Fonctions de sauvegarde/chargement des chaînes
 void SauvegarderChaine(FILE *f, const char *chaine) {
