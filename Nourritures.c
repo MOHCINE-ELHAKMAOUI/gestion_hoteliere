@@ -5,7 +5,7 @@
 #include "Structures.h"
 
 #define MAX_NOURRITURES 1000
-#define FICHIER_NOURRITURES "nourritures.dat"
+#define FICHIER_NOURRITURES "nourritures.txt"
 
 
 static Nourritures *TNourritures = NULL;
@@ -42,7 +42,8 @@ void InitialiserNourritures() {
 
 void LibererNourritures() {
     if (TNourritures != NULL) {
-        for (unsigned int i = 0; i < NBNourritures; i++) {
+        int i ;
+        for (i = 0; i < NBNourritures; i++) {
             free(TNourritures[i].Nom_Nourriture);
             free(TNourritures[i].Type_Nourriture);
             free(TNourritures[i].Description_Nourriture);
