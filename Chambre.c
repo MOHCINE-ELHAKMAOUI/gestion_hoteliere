@@ -1,11 +1,10 @@
-//#include"Chambre.h"
-//#include"Hotel.h"
+// #include"Chambre.h"
+// #include"Hotel.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 
-#include"Structures.h"
-
+#include "Structures.h"
 
 void ChargerChambresDepuisFichier(const char *filename)
 {
@@ -59,13 +58,82 @@ void AjouterChambre()
     unsigned int idHotel;
     printf("ID de l'hôtel: ");
     scanf("%u", &idHotel);
+    FILE *file = fopen("data_hotel.txt", "r");
+    if (file == NULL)
+    {
+        printf("Erreur d'ouverture du fichier.\n");
+        return;
+    }
 
+    char line[512];
+    while (fgets(line, sizeof(line), file))
+    {
+        // Allocate memory for the new hotel
+        NBHotel++;
+        THotel = realloc(THotel, NBHotel * sizeof(Hotel));
+        if (THotel == NULL)
+        {
+            printf("Erreur d'allocation mémoire.\n");
+            fclose(file);
+            return;
+        }
+
+        // Parse the line
+        char *token = strtok(line, "$");
+        THotel[NBHotel - 1].idHotel = atoi(token); // Get ID
+
+        token = strtok(NULL, "$");
+        THotel[NBHotel - 1].nomHotel = strdup(token); // Get Name
+
+        token = strtok(NULL, "$");
+        THotel[NBHotel - 1].adresseHotel = strdup(token); // Get Address
+
+        token = strtok(NULL, "$");
+        THotel[NBHotel - 1].villeHotel = strdup(token); // Get City
+
+        token = strtok(NULL, "$");
+        THotel[NBHotel - 1].paysHotel = strdup(token); // Get Country
+
+        token = strtok(NULL, "$");
+        if (!IsPhoneNumber(token))
+        {
+            NBHotel--;
+            THotel = realloc(THotel, NBHotel * sizeof(Hotel));
+            return;
+        }
+        THotel[NBHotel - 1].telHotel = strdup(token); // Get Phone
+
+        token = strtok(NULL, "$");
+        if (!IsEmail(token))
+        {
+            NBHotel--;
+            THotel = realloc(THotel, NBHotel * sizeof(Hotel));
+            return;
+        }
+        THotel[NBHotel - 1].emailHotel = strdup(token); // Get Email
+
+        token = strtok(NULL, "$");
+        if (!IsWebsite(token))
+        {
+            NBHotel--;
+            THotel = realloc(THotel, NBHotel * sizeof(Hotel));
+            return;
+        }
+        THotel[NBHotel - 1].siteWebHotel = strdup(token); // Get Website
+
+        token = strtok(NULL, "$");
+        THotel[NBHotel - 1].nbrEtoil = atoi(token); // Get Stars
+    }
+
+    fclose(file);
+    
     int hotelExiste = 0;
     int i;
-    for( i = 0; i < NBHotel; i++)
+    for (i = 0; i < NBHotel; i++)
     {
-        if(idHotel == THotel[i].idHotel)
+        if (idHotel == THotel[i].idHotel)
         {
+            printf("%u", THotel[i].idHotel);
             hotelExiste = 1;
             break;
         }
@@ -90,18 +158,22 @@ void AjouterChambre()
 
     printf("Numero de chambre: ");
     scanf("%u", &TChambre[NBChambre - 1].numeroChambre);
+    getchar();
 
     printf("Type de chambre: ");
     TChambre[NBChambre - 1].typeChambre = SaisirChaine();
 
     printf("Capacite: ");
     scanf("%u", &TChambre[NBChambre - 1].capacite);
+    getchar();
 
     printf("etage: ");
     scanf("%u", &TChambre[NBChambre - 1].etage);
+    getchar();
 
     printf("Prix de la chambre: ");
     scanf("%lf", &TChambre[NBChambre - 1].prixChambre);
+    getchar();
 
     printf("Chambre ajoutée avec succees! ID: %u\n", TChambre[NBChambre - 1].idChambre);
 }
@@ -113,8 +185,8 @@ void AfficherChambres()
         printf("Aucune chambre enregistrée.\n");
         return;
     }
-	unsigned int i;
-    for ( i = 0; i < NBChambre; i++)
+    unsigned int i;
+    for (i = 0; i < NBChambre; i++)
     {
         printf("-----------------------------\n");
         printf("Chambre ID: %u\n", TChambre[i].idChambre);
@@ -136,7 +208,7 @@ void SauvegarderChambresDansFichier(const char *filename)
         printf("Erreur d'ouverture du fichier.\n");
         return;
     }
-	unsigned int i;
+    unsigned int i;
     for (i = 0; i < NBChambre; i++)
     {
         fprintf(file, "%u$%u$%u$%s$%u$%u$%.2lf\n",
@@ -152,7 +224,6 @@ void SauvegarderChambresDansFichier(const char *filename)
     fclose(file);
     printf("Donnees des chambres sauvegardees avec succes dans %s\n", filename);
 }
-
 
 void ModifyChambre(unsigned int id)
 {
@@ -177,6 +248,7 @@ void ModifyChambre(unsigned int id)
 
     printf("Numéro de chambre (%u): ", TChambre[index].numeroChambre);
     scanf("%u", &TChambre[index].numeroChambre);
+    getchar();
 
     printf("Type de chambre (%s): ", TChambre[index].typeChambre);
     free(TChambre[index].typeChambre);
@@ -184,17 +256,18 @@ void ModifyChambre(unsigned int id)
 
     printf("Capacité (%u): ", TChambre[index].capacite);
     scanf("%u", &TChambre[index].capacite);
+    getchar();
 
     printf("Étage (%u): ", TChambre[index].etage);
     scanf("%u", &TChambre[index].etage);
+    getchar();
 
     printf("Prix de la chambre (%.2lf): ", TChambre[index].prixChambre);
     scanf("%lf", &TChambre[index].prixChambre);
+    getchar();
 
     printf("Chambre ID %u modifiée avec succès.\n", id);
 }
-
-
 
 void SupprimerChambre()
 {
@@ -204,7 +277,7 @@ void SupprimerChambre()
 
     int index = -1;
     unsigned int i;
-    for ( i = 0; i < NBChambre; i++)
+    for (i = 0; i < NBChambre; i++)
     {
         if (TChambre[i].idChambre == id)
         {
@@ -219,9 +292,9 @@ void SupprimerChambre()
         return;
     }
 
-    free(TChambre[index].typeChambre); 
+    free(TChambre[index].typeChambre);
 
-    for ( i = index; i < NBChambre - 1; i++)
+    for (i = index; i < NBChambre - 1; i++)
     {
         TChambre[i] = TChambre[i + 1];
     }
@@ -232,12 +305,11 @@ void SupprimerChambre()
     printf("Chambre ID %u supprimée avec succès.\n", id);
 }
 
-
 void RechercherChambreParTypeChambre(char *typeChambre)
 {
     int found = 0;
     unsigned int i;
-    for ( i = 0; i < NBChambre; i++)
+    for (i = 0; i < NBChambre; i++)
     {
         if (strcmp(TChambre[i].typeChambre, typeChambre) == 0)
         {
@@ -252,7 +324,6 @@ void RechercherChambreParTypeChambre(char *typeChambre)
         printf("Aucune chambre trouvée pour le type %s.\n", typeChambre);
     }
 }
-
 
 void RechercherChambreParEtage(unsigned int etage)
 {
@@ -274,12 +345,11 @@ void RechercherChambreParEtage(unsigned int etage)
     }
 }
 
-
 void RechercherChambreParPrixChambre(double prixChambre)
 {
     int found = 0;
     unsigned int i;
-    for ( i = 0; i < NBChambre; i++)
+    for (i = 0; i < NBChambre; i++)
     {
         if (TChambre[i].prixChambre <= prixChambre)
         {
@@ -353,13 +423,13 @@ void Menu_Tri()
     int choix;
     do
     {
-        printf("\t\t\n===== MENU TRI CHAMBRES =====\n");
-        printf("\t\t\t\t1. Trier par ID\n");
-        printf("\t\t\t\t2. Trier par numéro de chambre\n");
-        printf("\t\t\t\t3. Trier par prix croissant\n");
-        printf("\t\t\t\t4. Trier par prix décroissant\n");
-        printf("\t\t\t\t5. Trier par capacité\n");
-        printf("\t\t\t\t6. Retour\n");
+        printf("\n===== MENU TRI CHAMBRES =====\n");
+        printf("1. Trier par ID\n");
+        printf("2. Trier par numéro de chambre\n");
+        printf("3. Trier par prix croissant\n");
+        printf("4. Trier par prix décroissant\n");
+        printf("5. Trier par capacité\n");
+        printf("6. Retour\n");
         printf("Votre choix: ");
         scanf("%d", &choix);
 
@@ -381,6 +451,8 @@ void Menu_Tri()
             TrierChambresParCapacite();
             break;
         case 6:
+            SauvegarderChambresDansFichier("data_chambre.txt");
+        case 7:
             return;
         default:
             printf("Choix invalide, réessayez.\n");
@@ -388,28 +460,24 @@ void Menu_Tri()
     } while (1);
 }
 
-
-
-
-
-
-
 void Menu_Chambre()
 {
     int choix;
+    ChargerChambresDepuisFichier("data_chambre.txt");
     do
     {
-        printf("\t\n================== MENU CHAMBRES ==================\n");
-        printf("\t\t\t1. Ajouter une chambre\n");
-        printf("\t\t\t2. Modifier une chambre\n");
-        printf("\t\t\t3. Supprimer une chambre\n");
-        printf("\t\t\t4. Afficher toutes les chambres\n");
-        printf("\t\t\t5. Rechercher une chambre par type\n");
-        printf("\t\t\t6. Rechercher une chambre par étage\n");
-        printf("\t\t\t7. Rechercher une chambre par prix\n");
-        printf("\t\t\t8. Trier les chambres\n");
-        printf("\t\t\t9. Quitter\n");
-        printf("\t\t\tVotre choix: ");
+        printf("\n================== MENU CHAMBRES ==================\n");
+        printf("1. Ajouter une chambre\n");
+        printf("2. Modifier une chambre\n");
+        printf("3. Supprimer une chambre\n");
+        printf("4. Afficher toutes les chambres\n");
+        printf("5. Rechercher une chambre par type\n");
+        printf("6. Rechercher une chambre par étage\n");
+        printf("7. Rechercher une chambre par prix\n");
+        printf("8. Trier les chambres\n");
+        printf("9. Sauvegarder Chambres Dans Fichier\n");
+        printf("10. Quitter\n");
+        printf("Votre choix: ");
         scanf("%d", &choix);
         getchar();
 
@@ -460,11 +528,12 @@ void Menu_Chambre()
             Menu_Tri();
             break;
         case 9:
+            SauvegarderChambresDansFichier("data_chambre.txt");
+            break;
+        case 10:
             return;
         default:
             printf("Choix invalide, réessayez.\n");
         }
     } while (1);
 }
-
-
