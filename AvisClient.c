@@ -5,7 +5,7 @@
 #include "Structures.h"
 
 #define MAX_AVIS 1000
-#define FICHIER_AVIS "avis_clients.dat"
+#define FICHIER_AVIS "avis_clients.txt"
 
 static AvisClient *TAvis = NULL;
 static unsigned int NBAvis = 0;
@@ -25,7 +25,8 @@ void InitialiserSystemeAvis() {
 // Fonction pour libérer la mémoire
 void LibererSystemeAvis() {
     if (TAvis != NULL) {
-        for (unsigned int i = 0; i < NBAvis; i++) {
+        int i ;
+        for (i = 0; i < NBAvis; i++) {
             free(TAvis[i].Commentaire);
         }
         free(TAvis);
@@ -48,7 +49,8 @@ void SauvegarderAvis() {
     fwrite(&CptAvis, sizeof(unsigned int), 1, fichier);
 
     // Écrire chaque avis
-    for (unsigned int i = 0; i < NBAvis; i++) {
+    int i ;
+    for (i = 0; i < NBAvis; i++) {
         fwrite(&TAvis[i].id_Avis, sizeof(unsigned int), 1, fichier);
         fwrite(&TAvis[i].id_Client, sizeof(unsigned int), 1, fichier);
         fwrite(&TAvis[i].id_Hotel, sizeof(unsigned int), 1, fichier);
@@ -82,7 +84,8 @@ void ChargerAvis() {
     fread(&cptAvisFichier, sizeof(unsigned int), 1, fichier);
 
     // Lire chaque avis
-    for (unsigned int i = 0; i < nbAvisFichier; i++) {
+    int i ;
+    for (i = 0; i < nbAvisFichier; i++) {
         AvisClient avis;
         fread(&avis.id_Avis, sizeof(unsigned int), 1, fichier);
         fread(&avis.id_Client, sizeof(unsigned int), 1, fichier);
@@ -171,14 +174,16 @@ void AfficherTousLesAvis() {
         return;
     }
     
-    for (unsigned int i = 0; i < NBAvis; i++) {
+    int i ;
+    for (i = 0; i < NBAvis; i++) {
         AfficherAvis(&TAvis[i]);
     }
 }
 
 // Fonction pour rechercher un avis par ID
 AvisClient* RechercherAvisParId(unsigned int id) {
-    for (unsigned int i = 0; i < NBAvis; i++) {
+    int i;
+    for (i = 0; i < NBAvis; i++) {
         if (TAvis[i].id_Avis == id) {
             return &TAvis[i];
         }
@@ -191,7 +196,8 @@ void AfficherAvisParHotel(unsigned int idHotel) {
     printf("\n=== Avis pour l'hotel ID %u ===\n", idHotel);
     int trouve = 0;
     
-    for (unsigned int i = 0; i < NBAvis; i++) {
+    int i ;
+    for (i = 0; i < NBAvis; i++) {
         if (TAvis[i].id_Hotel == idHotel) {
             AfficherAvis(&TAvis[i]);
             trouve = 1;
@@ -208,7 +214,8 @@ float CalculerMoyenneHotel(unsigned int idHotel) {
     unsigned int somme = 0;
     unsigned int compte = 0;
     
-    for (unsigned int i = 0; i < NBAvis; i++) {
+    int i ;
+    for (i = 0; i < NBAvis; i++) {
         if (TAvis[i].id_Hotel == idHotel) {
             somme += TAvis[i].Note;
             compte++;
@@ -223,7 +230,8 @@ float CalculerMoyenneHotel(unsigned int idHotel) {
 void SupprimerAvis(unsigned int id) {
     int index = -1;
     
-    for (unsigned int i = 0; i < NBAvis; i++) {
+    int i ;
+    for (i = 0; i < NBAvis; i++) {
         if (TAvis[i].id_Avis == id) {
             index = i;
             break;
@@ -236,8 +244,8 @@ void SupprimerAvis(unsigned int id) {
     }
     
     free(TAvis[index].Commentaire);
-    
-    for (unsigned int i = index; i < NBAvis - 1; i++) {
+
+    for (i = index; i < NBAvis - 1; i++) {
         TAvis[i] = TAvis[i + 1];
     }
     

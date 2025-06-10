@@ -74,7 +74,6 @@ typedef struct chambre
 static unsigned int NBChambre = 0 ; 
 static unsigned int CChambre= 0 ; 
 static Chambre * TChambre = NULL ;
-
 void Menu_Chambre();
 //
 
